@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "981921788525",
+    "project_id": "food-delivery-15fb4",
+    "storage_bucket": "food-delivery-15fb4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:981921788525:android:af22c6382b05be0c238564",
+        "android_client_info": {
+          "package_name": "com.example.foodygo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "981921788525-595cqg63oldif1et0pdc7qh466maljom.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTHKB8j3Ief8jIwm9VmZPKIB7PiXA2MgQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "981921788525-595cqg63oldif1et0pdc7qh466maljom.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "981921788525-s6k6snraj4guh414grngle24i5p3j72b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.foodDelivery"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
