@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:foodygo/pages/signup.dart';
+import 'package:foodygo/feature/auth/presentation/pages/signup.dart';
 
 
 class ForgetPass extends StatefulWidget {

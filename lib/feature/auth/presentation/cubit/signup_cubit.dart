@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodygo/feature/auth/domain/usecase/sign_up_use_case.dart';
 import 'auth_state.dart';
 
 class SignupCubit extends Cubit<AuthState> {
-  SignupCubit() : super(AuthInitial());
+  final SignUpUseCase signUpUseCase;
+  SignupCubit(this.signUpUseCase) : super(AuthInitial());
 
   Future<void> signUp({
     required String email,
@@ -12,10 +14,7 @@ class SignupCubit extends Cubit<AuthState> {
   }) async {
     emit(AuthLoading());
     try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
-
-      await userCredential.user?.updateDisplayName(name);
+      await signUpUseCase.signUpCall(email, name, password);
 
       emit(AuthSuccess());
     } on FirebaseAuthException catch (e) {

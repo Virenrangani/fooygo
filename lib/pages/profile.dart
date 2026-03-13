@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:foodygo/pages/signup.dart';
+import 'package:foodygo/feature/auth/presentation/pages/signup.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:random_string/random_string.dart';
 import '../widget/sharedpref.dart';
 import '../widget/signout.dart';
-import 'login.dart';
+import '../feature/auth/presentation/pages/login.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});

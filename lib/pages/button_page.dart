@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:foodygo/pages/signup.dart';
+import 'package:foodygo/feature/auth/presentation/pages/signup.dart';
 import 'package:slidable_button/slidable_button.dart';
 
 import '../admin/admin_login.dart';
