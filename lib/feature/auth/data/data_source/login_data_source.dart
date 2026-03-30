@@ -1,78 +1,101 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../../../../core/constant/string/custom_string.dart';
+import '../../../../core/storage/shared_pref/shared_pref_service.dart';
 import '../model/user_model.dart';
 
-
-abstract class LoginDataSource{
-  Future<UserModel> login(String email,String password);
-
+abstract class LoginDataSource {
+  Future<UserModel> login(String email, String password);
   Future<UserModel> signInWithGoogle();
-
   Future<UserModel> signInWithGithub();
 }
 
 class LoginDataSourceImpl implements LoginDataSource {
   final FirebaseAuth firebaseAuth;
-
   LoginDataSourceImpl(this.firebaseAuth);
 
   @override
   Future<UserModel> login(String email, String password) async {
-    await Future.delayed(Duration(seconds: 1));
     try {
       final result = await firebaseAuth.signInWithEmailAndPassword(
-          email: email, password: password);
-      final user=result.user!;
+        email: email,
+        password: password,
+      );
+      final user = result.user!;
 
-      if(!user.emailVerified){
+      if (!user.emailVerified) {
+        await firebaseAuth.signOut();
         throw Exception(CustomString.userNotVerify);
       }
+
+      await SharedPrefService.saveUser(
+        id: user.uid,
+        email: user.email ?? '',
+        name: user.displayName ?? '',
+      );
+
       return UserModel.fromFirebase(user);
+    } on FirebaseAuthException {
+      rethrow;
     } catch (e) {
-      print(e.toString());
       rethrow;
     }
   }
 
-
   @override
-  Future<UserModel> signInWithGoogle() async{
-    await Future.delayed(Duration(seconds: 1));
-    await GoogleSignIn().signOut();
-    final googleUser=await GoogleSignIn().signIn();
+  Future<UserModel> signInWithGoogle() async {
+    try {
+      await GoogleSignIn().signOut();
+      final googleUser = await GoogleSignIn().signIn();
+      if (googleUser == null) throw Exception(CustomString.googleSignInFailed);
 
-    final googleAuth = await googleUser?.authentication;
+      final googleAuth = await googleUser.authentication;
 
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
 
-    final userCredential=await firebaseAuth.signInWithCredential(credential);
+      final userCredential = await firebaseAuth.signInWithCredential(credential);
+      final user = userCredential.user;
 
-    final user=userCredential.user;
-    if(user == null){
-      throw Exception(CustomString.userNotFound);
+      if (user == null) throw Exception(CustomString.userNotFound);
+
+      await SharedPrefService.saveUser(
+        id: user.uid,
+        email: user.email ?? '',
+        name: user.displayName ?? '',
+      );
+
+      return UserModel.fromFirebase(user);
+    } on FirebaseAuthException {
+      rethrow;
+    } catch (e) {
+      rethrow;
     }
-    return UserModel.fromFirebase(userCredential.user!);
   }
 
-
   @override
-  Future<UserModel> signInWithGithub()async {
+  Future<UserModel> signInWithGithub() async {
+    try {
+      final GithubAuthProvider githubProvider = GithubAuthProvider();
+      final UserCredential userCredential =
+      await firebaseAuth.signInWithProvider(githubProvider);
 
-    GithubAuthProvider githubProvider=GithubAuthProvider();
+      final user = userCredential.user;
+      if (user == null) throw Exception(CustomString.userNotCreated);
 
-    final UserCredential credential=await firebaseAuth
-        .signInWithProvider(githubProvider);
+      await SharedPrefService.saveUser(
+        id: user.uid,
+        email: user.email ?? '',
+        name: user.displayName ?? '',
+      );
 
-    final user=credential.user;
-
-    if (user==null){
-      throw Exception(CustomString.userNotCreated);
+      return UserModel.fromFirebase(user);
+    } on FirebaseAuthException {
+      rethrow;
+    } catch (e) {
+      rethrow;
     }
-    return UserModel.fromFirebase(user);
   }
-
 }
