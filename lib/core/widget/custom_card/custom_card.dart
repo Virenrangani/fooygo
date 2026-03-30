@@ -61,8 +61,7 @@ class _CustomCardState extends State<CustomCard> with SingleTickerProviderStateM
 
   void handleTap() async {
     await controller.forward();
-
-    widget.onTap;
+    widget.onTap?.call();
   }
 
   @override
@@ -80,7 +79,7 @@ class _CustomCardState extends State<CustomCard> with SingleTickerProviderStateM
               borderRadius: BorderRadius.circular(widget.borderRadius),
             ),
             child: Padding(
-              padding: widget.padding ?? CustomPadding.edgeAll16,
+              padding: widget.padding ?? CustomPadding.edgeAll8,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
