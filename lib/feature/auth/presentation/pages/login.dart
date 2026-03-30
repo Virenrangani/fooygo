@@ -93,6 +93,7 @@ class _LoginState extends State<Login> {
                   ),
                   Form(
                     key: formKey,
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     child: Column(
                       children: [
                         Container(
@@ -140,16 +141,8 @@ class _LoginState extends State<Login> {
                                     controller: emailController,
                                     prefixIcon: Icons.email_outlined,
                                     keyboardType: TextInputType.emailAddress,
-                                    validator: (val) {
-                                      if (val == null || val.isEmpty) {
-                                        return 'Enter your email';
-                                      }
-                                      if (!RegExp(r'^[\w-.]+@([\w-]+\.)+[\w]{2,4}$')
-                                          .hasMatch(val)) {
-                                        return 'Enter a valid email';
-                                      }
-                                      return null;
-                                    },
+                                    validator: (_)=>context.read<LoginCubit>().emailError,
+                                    onChanged: (val)=>context.read<LoginCubit>().emailValidation(val),
                                   ),
                                   SizedBox(height: screenHeight * 0.02),
 
@@ -165,12 +158,8 @@ class _LoginState extends State<Login> {
                                     onSuffixTap: () => setState(
                                           () => _obscurePassword = !_obscurePassword,
                                     ),
-                                    validator: (val) {
-                                      if (val == null || val.isEmpty) {
-                                        return 'Password is empty';
-                                      }
-                                      return null;
-                                    },
+                                    validator: (_)=> context.read<LoginCubit>().passwordError,
+                                    onChanged: (val)=>context.read<LoginCubit>().passwordValidation(val),
                                   ),
                                   SizedBox(height: screenHeight * 0.015),
 

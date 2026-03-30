@@ -11,3 +11,5 @@ class AuthFailure extends AuthState{
   AuthFailure(this.message);
 }
 
+class AuthFormValid extends AuthState{}
+
