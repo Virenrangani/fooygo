@@ -1,4 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:foodygo/feature/forget_password/data/data_source/forget_pass_data_source.dart';
+import 'package:foodygo/feature/forget_password/data/repository_impl/forget_pass_repository_impl.dart';
+import 'package:foodygo/feature/forget_password/domain/repository/forget_pass_repository.dart';
+import 'package:foodygo/feature/forget_password/domain/use_case/forget_pass_use_case.dart';
+import 'package:foodygo/feature/forget_password/presentation/cubit/forget_pass_cubit.dart';
 import 'package:get_it/get_it.dart';
 
 import '../feature/auth/data/data_source/login_data_source.dart';
@@ -18,23 +23,19 @@ class Injection {
 
    void configDependencies() {
     sl.registerLazySingleton(() => FirebaseAuth.instance);
-
     sl.registerLazySingleton<LoginDataSource>(()=> LoginDataSourceImpl(sl()));
-
     sl.registerLazySingleton<LoginRepository>(()=> LoginRepositoryImpl(sl()));
-
     sl.registerLazySingleton<LoginUseCase>(()=> LoginUseCase(sl()));
-
     sl.registerFactory(()=>LoginCubit(sl()));
 
     sl.registerLazySingleton<SignUpDataSource>(()=>SignUpDataSourceImpl(sl()));
-
     sl.registerLazySingleton<SignUpRepository>(()=> SignUpRepositoryImpl(sl()));
-
     sl.registerLazySingleton<SignUpUseCase>(()=> SignUpUseCase(sl()));
-
     sl.registerFactory(()=>SignupCubit(sl()));
 
-
+    sl.registerLazySingleton<ForgetPassDataSource>(()=>ForgetPassDataSourceImpl(sl()));
+    sl.registerLazySingleton<ForgetPassRepository>(()=>ForgetPassRepositoryImpl(sl()));
+    sl.registerLazySingleton(()=>ForgetPassUseCase(sl()));
+    sl.registerFactory(()=>ForgetPassCubit(sl()));
   }
 }
