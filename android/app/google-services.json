@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "981921788525-66cj3rs0q1edm2ibt6foklpk89rq6kkj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.foodygo",
+            "certificate_hash": "5c83c9a6d738898f0017291a6e2bfb8e1ed5c8f1"
+          }
+        },
+        {
           "client_id": "981921788525-595cqg63oldif1et0pdc7qh466maljom.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -31,10 +39,10 @@
               "client_type": 3
             },
             {
-              "client_id": "981921788525-s6k6snraj4guh414grngle24i5p3j72b.apps.googleusercontent.com",
+              "client_id": "981921788525-dmp0erbdv5m1c2rqub845raanrcjgvpu.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.foodDelivery"
+                "bundle_id": "com.example.foodygo"
               }
             }
           ]
