@@ -14,7 +14,7 @@ import 'package:foodygo/feature/auth/presentation/pages/signup.dart';
 import 'package:get_it/get_it.dart';
 import '../../../../core/widget/custom_card/custom_card.dart';
 import '../../../../pages/bottomnav.dart';
-import '../../../../pages/forgetpass.dart';
+import '../../../forget_password/presentation/page/forgetpass.dart';
 import '../cubit/auth_state.dart';
 import '../cubit/login_cubit.dart';
 
