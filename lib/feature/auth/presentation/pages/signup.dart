@@ -120,6 +120,7 @@ class _SignupState extends State<Signup> {
                             ),
                             child: Form(
                               key: formKey,
+                              autovalidateMode: AutovalidateMode.onUserInteraction,
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
@@ -137,31 +138,18 @@ class _SignupState extends State<Signup> {
                                     prefixIcon: Icons.person_2_outlined,
                                     labelText: CustomString.name,
                                     hintText: CustomString.nameHint,
-                                    validator: (val) {
-                                      if (val == null || val.trim().isEmpty) {
-                                        return 'Enter your name';
-                                      }
-                                      return null;
-                                    },
+                                    validator: (_)=> context.read<SignupCubit>().nameError,
+                                    onChanged: (val)=>context.read<SignupCubit>().nameValidation(val),
                                   ),
                                   SizedBox(height: screenHeight * 0.015),
-
                                   CustomFormField(
                                     controller: emailController,
                                     labelText: CustomString.email,
                                     hintText: CustomString.emailHint,
                                     prefixIcon: Icons.email_outlined,
                                     keyboardType: TextInputType.emailAddress,
-                                    validator: (val) {
-                                      if (val == null || val.isEmpty) {
-                                        return 'Enter your email';
-                                      }
-                                      if (!RegExp(r'^[\w-.]+@([\w-]+\.)+[\w]{2,4}$')
-                                          .hasMatch(val)) {
-                                        return 'Enter a valid email';
-                                      }
-                                      return null;
-                                    },
+                                    validator: (_)=>context.read<SignupCubit>().emailError,
+                                    onChanged: (val)=>context.read<SignupCubit>().emailValidation(val),
                                   ),
                                   SizedBox(height: screenHeight * 0.015),
 
@@ -176,15 +164,8 @@ class _SignupState extends State<Signup> {
                                         : Icons.visibility_off_outlined,
                                     onSuffixTap: () => setState(
                                             () => _obscurePassword = !_obscurePassword),
-                                    validator: (val) {
-                                      if (val == null || val.isEmpty) {
-                                        return 'Password is empty';
-                                      }
-                                      if (val.length < 6) {
-                                        return 'Password must be at least 6 characters';
-                                      }
-                                      return null;
-                                    },
+                                    validator: (_)=> context.read<SignupCubit>().passwordError,
+                                    onChanged: (val)=>context.read<SignupCubit>().passwordValidation(val),
                                   ),
                                   SizedBox(height: screenHeight * 0.02),
 
