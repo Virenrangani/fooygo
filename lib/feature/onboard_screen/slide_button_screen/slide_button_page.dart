@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:foodygo/core/constant/string/custom_string.dart';
 import 'package:foodygo/feature/auth/presentation/pages/signup.dart';
 import 'package:slidable_button/slidable_button.dart';
-
-import '../admin/admin_login.dart';
+import '../../../admin/admin_login.dart';
 
 class ClickableButton extends StatefulWidget {
   const ClickableButton({super.key});
@@ -12,13 +12,14 @@ class ClickableButton extends StatefulWidget {
 }
 
 class _ClickableButtonState extends State<ClickableButton> {
-  String result = "Let's slide!";
+  String result = CustomString.letsSlide;
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
         decoration:BoxDecoration(
           gradient:LinearGradient(colors:[Colors.
-              black,Colors.green],
+              deepOrange,Colors.deepOrangeAccent],
             begin:Alignment.topLeft,end:Alignment.bottomRight
           )
         ),
@@ -30,28 +31,32 @@ class _ClickableButtonState extends State<ClickableButton> {
               Expanded(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-
                   children: [
-                    const Text('Slide this button to admin or signup.',
-                      style:TextStyle(fontSize:25,fontWeight:FontWeight.bold),),
+                     Flexible(
+                       child: Padding(
+                         padding: const EdgeInsets.all(10),
+                         child: Text(CustomString.slideButtonForSignAdmin,
+                          style:TextStyle(fontSize:25,fontWeight:FontWeight.bold),),
+                       ),
+                     ),
                     const SizedBox(height: 16.0),
                     HorizontalSlidableButton(
                       initialPosition: SlidableButtonPosition.center,
                       width: MediaQuery.of(context).size.width / 1.5,
                       height:60,
                       buttonWidth: 80.0,
-                      color:Colors.deepOrangeAccent,
-                      buttonColor:Colors.blue,
+                      color:Colors.black,
+                      buttonColor:Colors.white,
                       dismissible: false,
-                      label: const Center(child: Text('Slide Me',
-                        style:TextStyle(fontSize:18,fontWeight:FontWeight.bold),)),
+                      label: const Center(child: Text(CustomString.slidMe,overflow:TextOverflow.ellipsis,
+                        style:TextStyle(fontSize:18,fontWeight:FontWeight.bold,color: Colors.black),)),
                       child: const Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('SIGNUP',style:TextStyle(fontSize:15,fontWeight:FontWeight.bold),),
-                            Text('ADMIN',style:TextStyle(fontSize:15,fontWeight:FontWeight.bold),),
+                            Text(CustomString.signUp,style:TextStyle(fontSize:15,fontWeight:FontWeight.bold,color: Colors.white),),
+                            Text(CustomString.admin,style:TextStyle(fontSize:15,fontWeight:FontWeight.bold,color: Colors.white),),
                           ],
                         ),
                       ),
