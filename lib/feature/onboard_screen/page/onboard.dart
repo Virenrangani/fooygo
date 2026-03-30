@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
-import '../widget/builddot.dart';
-import '../widget/contentpage.dart';
-import 'button_page.dart';
+import 'package:foodygo/core/constant/string/custom_string.dart';
+import 'package:foodygo/core/widget/elevated_button/custom_elevated_button.dart';
+import '../../../widget/builddot.dart';
+import '../../../widget/contentpage.dart';
+import '../slide_button_screen/slide_button_page.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
 
   @override
-  _OnboardingScreenState createState() => _OnboardingScreenState();
+  OnboardingScreenState createState() => OnboardingScreenState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen> {
+class OnboardingScreenState extends State<OnboardingScreen> {
   final PageController _pageController = PageController(initialPage: 0);
   int _currentPage = 0;
   final int _numPages = 3;
 
-  // Data for each onboarding page
   final List<Map<String, String>> _onboardingData = [
     {
       'image': 'assets/image/screen1.png',
@@ -33,7 +34,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     },
   ];
 
-  // Build page indicators
   List<Widget> _buildPageIndicator() {
     List<Widget> list = [];
     for (int i = 0; i < _numPages; i++) {
@@ -82,44 +82,21 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: _currentPage == _numPages - 1
-                  ? ElevatedButton(
-                onPressed: () {
-                  // Navigate to the next screen (e.g., Home)
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                      builder: (context) =>
-                  const ClickableButton()));
-                },
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(
-                    vertical: screenHeight * 0.02,
-                  ),
-                ),
-                child: const Text('Get Started',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Colors.black),),
-              )
+              child: _currentPage == _numPages - 1 ?
+                  CustomElevatedButton(text: CustomString.getStarted, onPressed: (){
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context)=>ClickableButton())
+                    );
+                  })
                   : Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  TextButton(
-                    onPressed: () {
-                      // Skip to the last page
-                      _pageController.animateToPage(_numPages - 1,
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.ease);
-                    },
-                    child: const Text('Skip',style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold,color: Colors.black),),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Go to the next page
-                      _pageController.nextPage(
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.ease);
-                    },
-                    child: const Text('Next',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: Colors.black),),
-                  ),
+                  CustomElevatedButton(text: CustomString.skip, onPressed: (){
+                    _pageController.animateToPage(_numPages - 1, duration: Duration(milliseconds: 500), curve: Curves.ease);
+                  }),
+                  CustomElevatedButton(text: CustomString.next, onPressed: (){
+                    _pageController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.ease);
+                  }),
                 ],
               ),
             ),
