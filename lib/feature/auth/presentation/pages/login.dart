@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodygo/core/constant/border/custom_border_radius.dart';
 import 'package:foodygo/core/constant/color/custom_color.dart';
 import 'package:foodygo/core/constant/font_size/custom_text_style.dart';
+import 'package:foodygo/core/constant/image/app_image/app_image.dart';
 import 'package:foodygo/core/constant/padding/custom_padding.dart';
 import 'package:foodygo/core/constant/string/custom_string.dart';
 import 'package:foodygo/core/widget/elevated_button/custom_elevated_button.dart';
@@ -10,6 +12,7 @@ import 'package:foodygo/core/widget/snack_bar/custom_snack_bar.dart';
 import 'package:foodygo/core/widget/text_form_field/custom_text_form_field.dart';
 import 'package:foodygo/feature/auth/presentation/pages/signup.dart';
 import 'package:get_it/get_it.dart';
+import '../../../../core/widget/custom_card/custom_card.dart';
 import '../../../../pages/bottomnav.dart';
 import '../../../../pages/forgetpass.dart';
 import '../cubit/auth_state.dart';
@@ -23,10 +26,17 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  String email = '', password = '';
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  bool _obscurePassword = true;
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,19 +50,19 @@ class _LoginState extends State<Login> {
         body: BlocConsumer<LoginCubit, AuthState>(
           listener: (context, state) {
             if (state is AuthSuccess) {
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context)=>BottomNav())
-              );
               CustomSnacksBar.showSuccess(context, CustomString.loginSuccess);
-
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (_) => BottomNav()),
+                    (_) => false,
+              );
             } else if (state is AuthFailure) {
               CustomSnacksBar.showError(context, state.message);
             }
           },
           builder: (context, state) {
+            final isLoading = state is AuthLoading;
             return SingleChildScrollView(
-              scrollDirection: Axis.vertical,
               child: Stack(
                 children: [
                   Container(
@@ -63,8 +73,8 @@ class _LoginState extends State<Login> {
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                         colors: [
-                          Colors.deepOrange.shade200,
-                          Colors.deepOrange
+                          CustomColor.primaryLight.withOpacity(0.7),
+                          CustomColor.primary,
                         ],
                       ),
                     ),
@@ -81,36 +91,37 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                   ),
-                  Column(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: screenHeight * 0.1),
-                        child: Center(
-                          child: Image.asset(
-                            'assets/image/food.png',
-                            color: Colors.black,
-                            width: screenWidth / (isSmallScreen ? 2 : 3),
-                            fit: BoxFit.cover,
+                  Form(
+                    key: formKey,
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(top: screenHeight * 0.1),
+                          child: Center(
+                            child: Image.asset(
+                              AppImage.foody,
+                              color: Colors.black,
+                              width: screenWidth / (isSmallScreen ? 2 : 3),
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: screenHeight * 0.05),
-                      Padding(
-                        padding: EdgeInsets.all(isSmallScreen ? 10 : 15),
-                        child: Material(
-                          elevation: 10,
-                          borderRadius: BorderRadius.circular(30),
-                          child: Container(
-                            padding: EdgeInsets.symmetric(
+                        SizedBox(height: screenHeight * 0.05),
+                        Padding(
+                          padding: EdgeInsets.all(isSmallScreen ? 10 : 15),
+                          child: Material(
+                            elevation: 10,
+                            borderRadius: CustomBorderRadius.cir28,
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
                                 horizontal: isSmallScreen ? 20 : 30,
-                                vertical: 30),
-                            width: screenWidth * 0.9,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: Form(
-                              key: formKey,
+                                vertical: 30,
+                              ),
+                              width: screenWidth * 0.9,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(30),
+                              ),
                               child: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
@@ -122,64 +133,151 @@ class _LoginState extends State<Login> {
                                     ),
                                   ),
                                   SizedBox(height: screenHeight * 0.01),
+
                                   CustomFormField(
-                                      labelText: CustomString.email,
-                                      hintText: CustomString.emailHint,
+                                    labelText: CustomString.email,
+                                    hintText: CustomString.emailHint,
+                                    controller: emailController,
                                     prefixIcon: Icons.email_outlined,
-                                    validator: (val){
-                                        if(val==null||val.isEmpty){
-                                          return "Enter the mail";
-                                        }
-                                        return null;
+                                    keyboardType: TextInputType.emailAddress,
+                                    validator: (val) {
+                                      if (val == null || val.isEmpty) {
+                                        return 'Enter your email';
+                                      }
+                                      if (!RegExp(r'^[\w-.]+@([\w-]+\.)+[\w]{2,4}$')
+                                          .hasMatch(val)) {
+                                        return 'Enter a valid email';
+                                      }
+                                      return null;
                                     },
                                   ),
                                   SizedBox(height: screenHeight * 0.02),
+
                                   CustomFormField(
-                                      labelText: CustomString.password,
-                                      hintText: CustomString.passwordHint,
-                                    suffixIcon:Icons.remove_red_eye_outlined ,
+                                    labelText: CustomString.password,
+                                    hintText: CustomString.passwordHint,
+                                    controller: passController,
+                                    obscureText: _obscurePassword,
                                     prefixIcon: Icons.password_outlined,
-                                    validator: (val){
-                                        if(val==null||val.isEmpty){
-                                          return "password is empty";
-                                        }
-                                        return null;
+                                    suffixIcon: _obscurePassword
+                                        ? Icons.remove_red_eye_outlined
+                                        : Icons.visibility_off_outlined,
+                                    onSuffixTap: () => setState(
+                                          () => _obscurePassword = !_obscurePassword,
+                                    ),
+                                    validator: (val) {
+                                      if (val == null || val.isEmpty) {
+                                        return 'Password is empty';
+                                      }
+                                      return null;
                                     },
                                   ),
                                   SizedBox(height: screenHeight * 0.015),
+
                                   Align(
-                                    alignment: Alignment.bottomRight,
+                                    alignment: Alignment.centerRight,
                                     child: CustomInkwellButton(
-                                        text: CustomString.forgetPassword,
-                                        onTap: (){
-                                          Navigator.pushReplacement(
-                                              context, MaterialPageRoute(
-                                              builder: (context)=>ForgetPass()
-                                          )
-                                          );
-                                        }
+                                      text: CustomString.forgetPassword,
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (_) => ForgetPass(),
+                                          ),
+                                        );
+                                      },
                                     ),
                                   ),
                                   SizedBox(height: screenHeight * 0.03),
-                                  CustomElevatedButton(
-                                      text:CustomString.login,
-                                      color1: CustomColor.secondary,
-                                      color2: CustomColor.primary,
-                                      width:screenWidth*0.4,
-                                      height: screenHeight*0.05,
-                                      onPressed: (){
-                                        if (formKey.currentState?.validate() ??false){
-                                          context.read<LoginCubit>()
-                                              .login(email: email, password: password);
-                                        }
-                                      })
+
+                                  isLoading
+                                      ? const CircularProgressIndicator(
+                                    color: Colors.deepOrange,
+                                  )
+                                      : CustomElevatedButton(
+                                    text: CustomString.login,
+                                    color1: CustomColor.secondary,
+                                    color2: CustomColor.primary,
+                                    width: screenWidth * 0.4,
+                                    height: screenHeight * 0.05,
+                                    onPressed: () {
+                                      if (formKey.currentState?.validate() ?? false) {
+                                        context.read<LoginCubit>().login(
+                                          email: emailController.text.trim(),
+                                          password: passController.text,
+                                        );
+                                      }
+                                    },
+                                  ),
                                 ],
                               ),
                             ),
                           ),
                         ),
-                      ),
-                    ],
+
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Divider(
+                                thickness: 3,
+                                color: CustomColor.divider,
+                              ),
+                            ),
+                            Padding(
+                              padding: CustomPadding.edgeAll12,
+                              child: Text(
+                                'Or',
+                                style: CustomTextStyles.bodyMedium,
+                              ),
+                            ),
+                            Expanded(
+                              child: Divider(
+                                thickness: 3,
+                                color: CustomColor.divider,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            SizedBox(
+                              height: screenHeight * 0.1,
+                              width: screenWidth * 0.40,
+                              child: CustomCard(
+                                color1: CustomColor.textSecondary,
+                                color2: CustomColor.primary,
+                                onTap: isLoading
+                                    ? null
+                                    : () => context
+                                    .read<LoginCubit>()
+                                    .signInWithGoogle(),
+                                icon: Icons.g_mobiledata,
+                                title: CustomString.signInWithGoogle,
+                              ),
+                            ),
+                            SizedBox(
+                              height: screenHeight * 0.1,
+                              width: screenWidth * 0.40,
+                              child: CustomCard(
+                                color1: CustomColor.textSecondary,
+                                color2: CustomColor.primary,
+                                onTap: isLoading
+                                    ? null
+                                    : () => context
+                                    .read<LoginCubit>()
+                                    .signInWithGithub(),
+                                icon: Icons.code,
+                                title: CustomString.signInWithGithub,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -191,13 +289,20 @@ class _LoginState extends State<Login> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(CustomString.notAccount,style: CustomTextStyles.bodyMedium,),
-              InkWell(onTap: (){
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context)=>Signup())
-                );
-              },
-              child: Text(CustomString.signUp ,style: CustomTextStyles.bodyLarge,),)
+              Text(
+                CustomString.notAccount,
+                style: CustomTextStyles.bodyMedium,
+              ),
+              InkWell(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const Signup()),
+                ),
+                child: Text(
+                  CustomString.signUp,
+                  style: CustomTextStyles.bodyLarge,
+                ),
+              ),
             ],
           ),
         ),
