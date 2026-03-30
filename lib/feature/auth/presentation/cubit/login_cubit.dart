@@ -7,13 +7,40 @@ class LoginCubit extends Cubit<AuthState> {
   final LoginUseCase loginUseCase;
   LoginCubit(this.loginUseCase) : super(AuthInitial());
 
-  Future<void> login({required String email, required String password,}) async {
+  Future<void> login({
+    required String email,
+    required String password,
+  }) async {
     emit(AuthLoading());
     try {
       await loginUseCase.loginCall(email, password);
       emit(AuthSuccess());
     } on FirebaseAuthException catch (e) {
-      emit(AuthFailure(e.message ?? "An error occurred"));
+      emit(AuthFailure(e.toString()));
+    } catch (e) {
+      emit(AuthFailure(e.toString()));
+    }
+  }
+
+  Future<void> signInWithGoogle() async {
+    emit(AuthLoading());
+    try {
+      await loginUseCase.googleCall();
+      emit(AuthSuccess());
+    } on FirebaseAuthException catch (e) {
+      emit(AuthFailure(e.toString()));
+    } catch (e) {
+      emit(AuthFailure(e.toString()));
+    }
+  }
+
+  Future<void> signInWithGithub() async {
+    emit(AuthLoading());
+    try {
+      await loginUseCase.githubCall();
+      emit(AuthSuccess());
+    } on FirebaseAuthException catch (e) {
+      emit(AuthFailure(e.toString()));
     } catch (e) {
       emit(AuthFailure(e.toString()));
     }
