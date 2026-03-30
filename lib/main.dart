@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:foodygo/di/injection.dart';
-import 'package:foodygo/pages/onboard.dart';
+import 'package:foodygo/feature/onboard_screen/page/onboard.dart';
 import 'firebase_options.dart';
 
 void main()async{
