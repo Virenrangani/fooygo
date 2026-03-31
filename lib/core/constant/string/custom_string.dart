@@ -53,5 +53,11 @@ class CustomString {
   static const String skip="Skip";
   static const String next="next";
 
+  static const String resetPasswordEmailSent="Password reset email sent! Check your inbox";
+  static const String passRecovery="PASSWORD RECOVERY";
+  static const String enterMailToReceiveLink="Enter your registered email to\nreceive a reset link";
+  static const String resetEmail="SEND RESET EMAIL";
+  static const String back="Back to";
+
 
 }

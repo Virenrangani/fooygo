@@ -40,7 +40,7 @@ class _ForgetPassState extends State<ForgetPass> {
             if (state is ForgetPassSuccess) {
               CustomSnacksBar.showSuccess(
                 context,
-                'Password reset email sent! Check your inbox.',
+                CustomString.resetPasswordEmailSent,
               );
               Navigator.pushAndRemoveUntil(
                 context,
@@ -58,7 +58,6 @@ class _ForgetPassState extends State<ForgetPass> {
               child: SizedBox(
                 child: Column(
                   children: [
-                    // — Header —
                     Container(
                       margin: EdgeInsets.only(top: screenHeight * 0.12),
                       child: const Icon(
@@ -69,7 +68,7 @@ class _ForgetPassState extends State<ForgetPass> {
                     ),
                     SizedBox(height: screenHeight * 0.02),
                     const Text(
-                      'PASSWORD RECOVERY',
+                      CustomString.passRecovery,
                       style: TextStyle(
                         fontSize: 26,
                         fontWeight: FontWeight.bold,
@@ -79,7 +78,7 @@ class _ForgetPassState extends State<ForgetPass> {
                     ),
                     SizedBox(height: screenHeight * 0.01),
                     const Text(
-                      'Enter your registered email to\nreceive a reset link',
+                      CustomString.enterMailToReceiveLink,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         fontSize: 14,
@@ -126,7 +125,6 @@ class _ForgetPassState extends State<ForgetPass> {
                                   color: Colors.deepOrange,
                                 )
                                     : SizedBox(
-                                  width: double.infinity,
                                   height: 50,
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
@@ -147,7 +145,7 @@ class _ForgetPassState extends State<ForgetPass> {
                                       }
                                     },
                                     child: const Text(
-                                      'SEND RESET EMAIL',
+                                      CustomString.resetEmail,
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
@@ -168,12 +166,13 @@ class _ForgetPassState extends State<ForgetPass> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          'Back to ',
+                           CustomString.back,
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.white70,
                           ),
                         ),
+                        SizedBox(width:10,),
                         GestureDetector(
                           onTap: () => Navigator.pushAndRemoveUntil(
                             context,
@@ -183,7 +182,7 @@ class _ForgetPassState extends State<ForgetPass> {
                                 (_) => false,
                           ),
                           child: const Text(
-                            'Login',
+                            CustomString.login,
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -200,12 +199,13 @@ class _ForgetPassState extends State<ForgetPass> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          "Don't have an account? ",
+                          CustomString.notAccount,
                           style: TextStyle(
                             fontSize: 16,
                             color: Colors.white70,
                           ),
                         ),
+                        SizedBox(width:10,),
                         GestureDetector(
                           onTap: () => Navigator.pushAndRemoveUntil(
                             context,
@@ -215,7 +215,7 @@ class _ForgetPassState extends State<ForgetPass> {
                                 (_) => false,
                           ),
                           child: const Text(
-                            'Create',
+                            CustomString.signUp,
                             style: TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
