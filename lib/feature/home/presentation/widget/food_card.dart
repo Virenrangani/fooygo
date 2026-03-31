@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../food_page /presentation/page/food_details_page.dart';
 import '../../domain/food_entity/food_entity.dart';
 import 'food_image.dart';
 
@@ -18,12 +19,12 @@ class FoodCard extends StatelessWidget {
     final sh = MediaQuery.of(context).size.height;
 
     return GestureDetector(
-      // onTap: () => Navigator.push(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (_) => DetailsPage(food: food, userId: userId),
-      //   ),
-      // ),
+      onTap: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => DetailsPage(food: food),
+        ),
+      ),
       child: Container(
         margin: EdgeInsets.only(bottom: sh * 0.02),
         decoration: BoxDecoration(
