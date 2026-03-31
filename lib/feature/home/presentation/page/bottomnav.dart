@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:foodygo/pages/profile.dart';
 import 'package:foodygo/pages/wallet.dart';
 import 'homepage.dart';
-import 'order.dart';
+import '../../../../../../../pages/order.dart';
 
 
 class BottomNav extends StatefulWidget {
-  BottomNav({Key? key}) : super(key: key);
+  const BottomNav({super.key});
 
   @override
-  _BottomNavState createState() => _BottomNavState();
+  BottomNavState createState() => BottomNavState();
 }
 
-class _BottomNavState extends State<BottomNav> {
-  int _tabIndex = 0; // Starting index
+class BottomNavState extends State<BottomNav> {
+  int _tabIndex = 0;
   late List<Widget> _pages;
   late Widget _currentPage;
 
@@ -37,7 +37,7 @@ class _BottomNavState extends State<BottomNav> {
         height: 60,
         backgroundColor: Colors.white,
         color: Colors.black,
-        animationDuration: Duration(seconds:1),
+        animationDuration: Duration(milliseconds:300),
         onTap: (int index) {
           setState(() {
             _tabIndex = index;

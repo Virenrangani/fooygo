@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:random_string/random_string.dart';
 import '../widget/service.dart';
 import '../widget/sharedpref.dart';
-import 'bottomnav.dart';
+import '../feature/home/presentation/page/bottomnav.dart';
 
 class Auth {
 

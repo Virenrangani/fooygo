@@ -13,7 +13,7 @@ import 'package:foodygo/core/widget/text_form_field/custom_text_form_field.dart'
 import 'package:foodygo/feature/auth/presentation/pages/signup.dart';
 import 'package:get_it/get_it.dart';
 import '../../../../core/widget/custom_card/custom_card.dart';
-import '../../../../pages/bottomnav.dart';
+import '../../../home/presentation/page/bottomnav.dart';
 import '../../../forget_password/presentation/page/forgetpass.dart';
 import '../cubit/auth_state.dart';
 import '../cubit/login_cubit.dart';
