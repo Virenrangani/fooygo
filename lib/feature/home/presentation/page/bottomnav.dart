@@ -1,7 +1,7 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:foodygo/pages/profile.dart';
-import 'package:foodygo/pages/wallet.dart';
+import 'package:foodygo/feature/wallet/presentation/page/wallet.dart';
 import 'homepage.dart';
 import '../../../../../../../pages/order.dart';
 
@@ -23,7 +23,7 @@ class BottomNavState extends State<BottomNav> {
     super.initState();
     _pages = [
       HomePage(),
-      Wallet(),
+      WalletPage(),
       Order(),
       Profile(),
     ];
