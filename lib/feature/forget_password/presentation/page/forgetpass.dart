@@ -56,8 +56,6 @@ class _ForgetPassState extends State<ForgetPass> {
 
             return SingleChildScrollView(
               child: SizedBox(
-                height: screenHeight,
-                width: screenWidth,
                 child: Column(
                   children: [
                     // — Header —
@@ -108,6 +106,7 @@ class _ForgetPassState extends State<ForgetPass> {
                           ),
                           child: Form(
                             key: formKey,
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -117,17 +116,8 @@ class _ForgetPassState extends State<ForgetPass> {
                                   hintText: CustomString.emailHint,
                                   prefixIcon: Icons.email_outlined,
                                   keyboardType: TextInputType.emailAddress,
-                                  validator: (val) {
-                                    if (val == null || val.isEmpty) {
-                                      return 'Enter your email';
-                                    }
-                                    if (!RegExp(
-                                      r'^[\w-.]+@([\w-]+\.)+[\w]{2,4}$',
-                                    ).hasMatch(val)) {
-                                      return 'Enter a valid email';
-                                    }
-                                    return null;
-                                  },
+                                  validator: (_)=>context.read<ForgetPassCubit>().emailError,
+                                  onChanged: (val)=>context.read<ForgetPassCubit>().emailValidation(val),
                                 ),
                                 SizedBox(height: screenHeight * 0.03),
 

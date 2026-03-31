@@ -10,3 +10,5 @@ class ForgetPassFailure extends ForgetPassState {
   final String message;
   ForgetPassFailure(this.message);
 }
+
+class ForgetPassFormValid extends ForgetPassState{}
