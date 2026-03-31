@@ -1,5 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:foodygo/feature/food_page%20/data/data_source/food_details_data_source.dart';
+import 'package:foodygo/feature/food_page%20/data/repository_impl/food_details_repository_impl.dart';
+import 'package:foodygo/feature/food_page%20/domain/repository/food_details_repository.dart';
+import 'package:foodygo/feature/food_page%20/domain/use_case/add_to_cart_use_case.dart';
+import 'package:foodygo/feature/food_page%20/presentation/cubit/food_details_cubit.dart';
 import 'package:foodygo/feature/forget_password/data/data_source/forget_pass_data_source.dart';
 import 'package:foodygo/feature/forget_password/data/repository_impl/forget_pass_repository_impl.dart';
 import 'package:foodygo/feature/forget_password/domain/repository/forget_pass_repository.dart';
@@ -61,5 +66,10 @@ class Injection {
     sl.registerLazySingleton(()=>GetWalletUseCase(sl()));
     sl.registerLazySingleton(()=>UpdateWalletUseCase(sl()));
     sl.registerFactory(()=>WalletCubit(getWalletUseCase: sl(), updateWalletUseCase: sl()));
+
+    sl.registerLazySingleton<DetailsDataSource>(()=>DetailsDataSourceImpl(sl()));
+    sl.registerLazySingleton<DetailsRepository>(()=>DetailsRepositoryImpl(sl()));
+    sl.registerLazySingleton(()=>AddToCartUseCase(sl()));
+    sl.registerFactory(()=>DetailsCubit(addToCartUseCase: sl()));
   }
 }
