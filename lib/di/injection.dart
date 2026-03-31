@@ -10,6 +10,12 @@ import 'package:foodygo/feature/home/data/repository_impl/home_repository_impl.d
 import 'package:foodygo/feature/home/domain/repository/home_repository.dart';
 import 'package:foodygo/feature/home/domain/use_case/food_use_case.dart';
 import 'package:foodygo/feature/home/presentation/cubit/home_cubit.dart';
+import 'package:foodygo/feature/wallet/data/data_source/wallet_data_source.dart';
+import 'package:foodygo/feature/wallet/data/repository_impl/wallet_repository_impl.dart';
+import 'package:foodygo/feature/wallet/domain/repository/wallet_repository.dart';
+import 'package:foodygo/feature/wallet/domain/use_case/get_wallet_use_case.dart';
+import 'package:foodygo/feature/wallet/domain/use_case/update_wallet_use_case.dart';
+import 'package:foodygo/feature/wallet/presentation/cubit/wallet_cubit.dart';
 import 'package:get_it/get_it.dart';
 import '../feature/auth/data/data_source/login_data_source.dart';
 import '../feature/auth/data/data_source/sign_up_data_source.dart';
@@ -49,5 +55,11 @@ class Injection {
     sl.registerLazySingleton<HomeRepository>(()=>HomeRepositoryImpl(sl()));
     sl.registerLazySingleton(()=>GetFoodUseCase(sl()));
     sl.registerFactory(()=>HomeCubit(getFoodUseCase: sl()));
+
+    sl.registerLazySingleton<WalletDataSource>(()=>WalletDataSourceImpl(sl()));
+    sl.registerLazySingleton<WalletRepository>(()=>WalletRepositoryImpl(sl()));
+    sl.registerLazySingleton(()=>GetWalletUseCase(sl()));
+    sl.registerLazySingleton(()=>UpdateWalletUseCase(sl()));
+    sl.registerFactory(()=>WalletCubit(getWalletUseCase: sl(), updateWalletUseCase: sl()));
   }
 }
