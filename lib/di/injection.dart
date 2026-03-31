@@ -1,11 +1,16 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:foodygo/feature/forget_password/data/data_source/forget_pass_data_source.dart';
 import 'package:foodygo/feature/forget_password/data/repository_impl/forget_pass_repository_impl.dart';
 import 'package:foodygo/feature/forget_password/domain/repository/forget_pass_repository.dart';
 import 'package:foodygo/feature/forget_password/domain/use_case/forget_pass_use_case.dart';
 import 'package:foodygo/feature/forget_password/presentation/cubit/forget_pass_cubit.dart';
+import 'package:foodygo/feature/home/data/data_source/home_data_source.dart';
+import 'package:foodygo/feature/home/data/repository_impl/home_repository_impl.dart';
+import 'package:foodygo/feature/home/domain/repository/home_repository.dart';
+import 'package:foodygo/feature/home/domain/use_case/food_use_case.dart';
+import 'package:foodygo/feature/home/presentation/cubit/home_cubit.dart';
 import 'package:get_it/get_it.dart';
-
 import '../feature/auth/data/data_source/login_data_source.dart';
 import '../feature/auth/data/data_source/sign_up_data_source.dart';
 import '../feature/auth/data/repository/login_repository_impl.dart';
@@ -23,6 +28,8 @@ class Injection {
 
    void configDependencies() {
     sl.registerLazySingleton(() => FirebaseAuth.instance);
+    sl.registerLazySingleton(()=>FirebaseFirestore.instance);
+
     sl.registerLazySingleton<LoginDataSource>(()=> LoginDataSourceImpl(sl()));
     sl.registerLazySingleton<LoginRepository>(()=> LoginRepositoryImpl(sl()));
     sl.registerLazySingleton<LoginUseCase>(()=> LoginUseCase(sl()));
@@ -37,5 +44,10 @@ class Injection {
     sl.registerLazySingleton<ForgetPassRepository>(()=>ForgetPassRepositoryImpl(sl()));
     sl.registerLazySingleton(()=>ForgetPassUseCase(sl()));
     sl.registerFactory(()=>ForgetPassCubit(sl()));
+
+    sl.registerLazySingleton<HomeDataSource>(()=>HomeDataSourceImpl(sl()));
+    sl.registerLazySingleton<HomeRepository>(()=>HomeRepositoryImpl(sl()));
+    sl.registerLazySingleton(()=>GetFoodUseCase(sl()));
+    sl.registerFactory(()=>HomeCubit(getFoodUseCase: sl()));
   }
 }
