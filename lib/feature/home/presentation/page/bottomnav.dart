@@ -1,9 +1,9 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:foodygo/feature/cart/presentation/page/cart_page.dart';
 import 'package:foodygo/pages/profile.dart';
 import 'package:foodygo/feature/wallet/presentation/page/wallet.dart';
 import 'homepage.dart';
-import '../../../../../../../pages/order.dart';
 
 
 class BottomNav extends StatefulWidget {
@@ -24,7 +24,7 @@ class BottomNavState extends State<BottomNav> {
     _pages = [
       HomePage(),
       WalletPage(),
-      Order(),
+      CartPage(),
       Profile(),
     ];
     _currentPage = _pages[_tabIndex];
