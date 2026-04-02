@@ -6,6 +6,17 @@ class SharedPrefService {
   static const _keyUserName  = 'user_name';
   static const _keyIsLoggedIn = 'is_logged_in';
   static const _keyWalletBalance = 'wallet_balance';
+  static const _keyUserProfile = 'user_profile';
+
+  static Future<void> saveUserProfile(String url) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_keyUserProfile, url);
+  }
+
+  static Future<String?> getUserProfile() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(_keyUserProfile);
+  }
 
   static Future<void> saveWalletBalance(int balance) async {
     final prefs = await SharedPreferences.getInstance();
