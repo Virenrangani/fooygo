@@ -4,6 +4,7 @@ import 'package:foodygo/core/widget/elevated_button/custom_elevated_button.dart'
 import 'package:foodygo/core/widget/snack_bar/custom_snack_bar.dart';
 import 'package:foodygo/core/widget/text_form_field/custom_text_form_field.dart';
 import 'package:get_it/get_it.dart';
+import '../../../admin_home_page/page/admin_home_page.dart';
 import '../cubit/admin_cubit.dart';
 import '../cubit/admin_state.dart';
 
@@ -49,10 +50,10 @@ class _AdminLoginViewState extends State<_AdminLoginView> {
       body: BlocConsumer<AdminCubit, AdminState>(
         listener: (context, state) {
           if (state is AdminLoginSuccess) {
-            // Navigator.pushReplacement(
-            //   context,
-            //   MaterialPageRoute(builder: (_) => const AdminHomePage()),
-            // );
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (_) => const AdminHomePage()),
+            );
             CustomSnacksBar.showSuccess(context, "Login Successfully");
           } else if (state is AdminLoginFailure) {
             CustomSnacksBar.showError(context, state.message);
