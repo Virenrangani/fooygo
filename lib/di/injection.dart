@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:foodygo/feature/cart/data/data_source/cart_data_source.dart';
 import 'package:foodygo/feature/cart/data/repository_impl/cart_repository_impl.dart';
 import 'package:foodygo/feature/cart/domain/repository/cart_repository.dart';
@@ -21,6 +22,11 @@ import 'package:foodygo/feature/home/data/repository_impl/home_repository_impl.d
 import 'package:foodygo/feature/home/domain/repository/home_repository.dart';
 import 'package:foodygo/feature/home/domain/use_case/food_use_case.dart';
 import 'package:foodygo/feature/home/presentation/cubit/home_cubit.dart';
+import 'package:foodygo/feature/profile/data/data_source/profile_data_source.dart';
+import 'package:foodygo/feature/profile/data/repository_impl/profile_repository_impl.dart';
+import 'package:foodygo/feature/profile/domain/repository/profile_repository.dart';
+import 'package:foodygo/feature/profile/domain/use_case/profile_use_case.dart';
+import 'package:foodygo/feature/profile/presentation/cubit/profile_cubit.dart';
 import 'package:foodygo/feature/wallet/data/data_source/wallet_data_source.dart';
 import 'package:foodygo/feature/wallet/data/repository_impl/wallet_repository_impl.dart';
 import 'package:foodygo/feature/wallet/domain/repository/wallet_repository.dart';
@@ -46,6 +52,7 @@ class Injection {
    void configDependencies() {
     sl.registerLazySingleton(() => FirebaseAuth.instance);
     sl.registerLazySingleton(()=>FirebaseFirestore.instance);
+    sl.registerLazySingleton(()=>FirebaseStorage.instance);
 
     sl.registerLazySingleton<LoginDataSource>(()=> LoginDataSourceImpl(sl()));
     sl.registerLazySingleton<LoginRepository>(()=> LoginRepositoryImpl(sl()));
@@ -84,5 +91,9 @@ class Injection {
     sl.registerLazySingleton(()=>GetCartUseCase(sl()));
     sl.registerFactory(()=>CartCubit(sl(),sl()));
 
+    sl.registerLazySingleton<ProfileDataSource>(()=>ProfileDataSourceImpl(sl(),sl()));
+    sl.registerLazySingleton<ProfileRepository>(()=>ProfileRepositoryImpl(sl()));
+    sl.registerLazySingleton(()=>ProfileUseCase(sl()));
+    sl.registerFactory(()=>ProfileCubit(sl()));
   }
 }
