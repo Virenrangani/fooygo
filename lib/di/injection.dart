@@ -1,6 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:foodygo/feature/admin_login/data/data_source/admin_data_source.dart';
+import 'package:foodygo/feature/admin_login/data/repository_impl/admin_repository_impl.dart';
+import 'package:foodygo/feature/admin_login/domain/repository/admin_repository.dart';
+import 'package:foodygo/feature/admin_login/domain/use_case/admin_use_case.dart';
+import 'package:foodygo/feature/admin_login/presentation/cubit/admin_cubit.dart';
 import 'package:foodygo/feature/cart/data/data_source/cart_data_source.dart';
 import 'package:foodygo/feature/cart/data/repository_impl/cart_repository_impl.dart';
 import 'package:foodygo/feature/cart/domain/repository/cart_repository.dart';
@@ -95,5 +100,10 @@ class Injection {
     sl.registerLazySingleton<ProfileRepository>(()=>ProfileRepositoryImpl(sl()));
     sl.registerLazySingleton(()=>ProfileUseCase(sl()));
     sl.registerFactory(()=>ProfileCubit(sl()));
+
+    sl.registerLazySingleton<AdminDataSource>(()=>AdminDataSourceImpl(sl()));
+    sl.registerLazySingleton<AdminRepository>(()=>AdminRepositoryImpl(sl()));
+    sl.registerLazySingleton(()=>AdminLoginUseCase(sl()));
+    sl.registerFactory(()=>AdminCubit(sl()));
   }
 }
