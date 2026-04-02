@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:foodygo/core/constant/string/custom_string.dart';
 import 'package:foodygo/feature/auth/presentation/pages/signup.dart';
 import 'package:slidable_button/slidable_button.dart';
-import '../../../admin/admin_login.dart';
+import '../../admin_login/presentation/page/admin_login_page.dart';
 
 class ClickableButton extends StatefulWidget {
   const ClickableButton({super.key});
@@ -64,7 +64,7 @@ class _ClickableButtonState extends State<ClickableButton> {
                         setState(() {
                           if (position == SlidableButtonPosition.end) {
                             Navigator.push(context,
-                                MaterialPageRoute(builder:(context) =>AdminLogin(),));
+                                MaterialPageRoute(builder:(context) =>AdminLoginPage(),));
                           } else {
                             Navigator.push(context,
                                 MaterialPageRoute(builder:(context) =>Signup(),));;
