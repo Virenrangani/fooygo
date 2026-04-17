@@ -52,7 +52,7 @@ class _AdminLoginViewState extends State<_AdminLoginView> {
           if (state is AdminLoginSuccess) {
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (_) => const AdminHomePage()),
+              MaterialPageRoute(builder: (_) =>  AdminHomePage()),
             );
             CustomSnacksBar.showSuccess(context, "Login Successfully");
           } else if (state is AdminLoginFailure) {

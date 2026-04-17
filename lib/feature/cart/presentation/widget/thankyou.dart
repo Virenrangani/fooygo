@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import '../feature/home/presentation/page/bottomnav.dart';
+import '../../../home/presentation/page/bottomnav.dart';
 
 class ThankYou extends StatefulWidget {
   const ThankYou({super.key});

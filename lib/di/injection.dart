@@ -1,6 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:foodygo/feature/admin_add_food/data/data_source/add_food_data_source.dart';
+import 'package:foodygo/feature/admin_add_food/data/repository_impl/add_food_repository_impl.dart';
+import 'package:foodygo/feature/admin_add_food/domain/repository/add_food_repository.dart';
+import 'package:foodygo/feature/admin_add_food/domain/use_case/add_food_use_case.dart';
+import 'package:foodygo/feature/admin_add_food/presentation/cubit/add_food_cubit.dart';
 import 'package:foodygo/feature/admin_login/data/data_source/admin_data_source.dart';
 import 'package:foodygo/feature/admin_login/data/repository_impl/admin_repository_impl.dart';
 import 'package:foodygo/feature/admin_login/domain/repository/admin_repository.dart';
@@ -105,5 +110,10 @@ class Injection {
     sl.registerLazySingleton<AdminRepository>(()=>AdminRepositoryImpl(sl()));
     sl.registerLazySingleton(()=>AdminLoginUseCase(sl()));
     sl.registerFactory(()=>AdminCubit(sl()));
+
+    sl.registerLazySingleton<AddFoodDataSource>(()=>AddFoodDataSourceImpl(sl()));
+    sl.registerLazySingleton<AddFoodRepository>(()=>AddFoodRepositoryImpl(sl()));
+    sl.registerLazySingleton(()=>AddFoodUseCase(sl()));
+    sl.registerFactory(()=>AddFoodCubit(sl()));
   }
 }

@@ -18,7 +18,7 @@ class CustomString {
   static const String atLeastOneNumber="Add at least one number";
   static const String atLeastOneSpecialChar="Add at least one special character";
 
-  static const String login="Login";
+  static const String login="LogIn";
   static const String loginSuccess="Login Successfully ";
   static const String logInIntro="Please Enter the Login details";
   static const String notAccount="Don't have an account??";

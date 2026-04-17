@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodygo/core/constant/string/custom_string.dart';
+import 'package:foodygo/feature/auth/presentation/pages/login.dart';
 import 'package:foodygo/feature/auth/presentation/pages/signup.dart';
 import 'package:slidable_button/slidable_button.dart';
 import '../../admin_login/presentation/page/admin_login_page.dart';
@@ -55,7 +56,7 @@ class _ClickableButtonState extends State<ClickableButton> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(CustomString.signUp,style:TextStyle(fontSize:15,fontWeight:FontWeight.bold,color: Colors.white),),
+                            Text(CustomString.login,style:TextStyle(fontSize:15,fontWeight:FontWeight.bold,color: Colors.white),),
                             Text(CustomString.admin,style:TextStyle(fontSize:15,fontWeight:FontWeight.bold,color: Colors.white),),
                           ],
                         ),
@@ -67,7 +68,7 @@ class _ClickableButtonState extends State<ClickableButton> {
                                 MaterialPageRoute(builder:(context) =>AdminLoginPage(),));
                           } else {
                             Navigator.push(context,
-                                MaterialPageRoute(builder:(context) =>Signup(),));;
+                                MaterialPageRoute(builder:(context) =>Login(),));;
                           }
                         });
                       },

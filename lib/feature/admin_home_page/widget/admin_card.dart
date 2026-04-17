@@ -9,6 +9,7 @@ class AdminCard extends StatelessWidget {
   final VoidCallback onTap;
 
   const AdminCard({
+    super.key,
     required this.title,
     required this.subtitle,
     required this.icon,

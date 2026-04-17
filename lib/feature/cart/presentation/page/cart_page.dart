@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodygo/feature/cart/domain/entity/cart_entity.dart';
 import 'package:foodygo/feature/cart/presentation/cubit/cart_cubit.dart';
 import 'package:foodygo/feature/cart/presentation/cubit/cart_state.dart';
-import 'package:foodygo/pages/thankyou.dart';
+import 'package:foodygo/feature/cart/presentation/widget/thankyou.dart';
 import 'package:get_it/get_it.dart';
 import '../widget/cart_item_card.dart';
 import '../widget/checkout_button.dart';

@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:foodygo/di/injection.dart';
+import 'package:foodygo/feature/admin_home_page/page/admin_home_page.dart';
 import 'package:foodygo/feature/home/presentation/page/bottomnav.dart';
 import 'package:foodygo/feature/home/presentation/page/homepage.dart';
 import 'package:foodygo/feature/onboard_screen/page/onboard.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: BottomNav()
+        home: OnboardingScreen()
     );
   }
 }

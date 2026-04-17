@@ -62,7 +62,7 @@ class _ForgetPassState extends State<ForgetPass> {
                       margin: EdgeInsets.only(top: screenHeight * 0.12),
                       child: const Icon(
                         Icons.lock_reset_outlined,
-                        size: 80,
+                        size:50,
                         color: Colors.white,
                       ),
                     ),

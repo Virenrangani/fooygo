@@ -28,6 +28,7 @@ class AdminDataSourceImpl implements AdminDataSource {
       }
 
     } catch (e) {
+      print(e);
       rethrow;
     }
   }

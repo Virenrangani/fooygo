@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:foodygo/core/constant/string/custom_string.dart';
 import 'package:foodygo/core/widget/elevated_button/custom_elevated_button.dart';
-import '../../../widget/builddot.dart';
-import '../../../widget/contentpage.dart';
 import '../slide_button_screen/slide_button_page.dart';
+import '../widget/build_dot.dart';
+import '../widget/content_page.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});

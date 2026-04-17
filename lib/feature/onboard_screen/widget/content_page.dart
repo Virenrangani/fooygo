@@ -8,13 +8,13 @@ class ContentPage extends StatelessWidget {
   final double screenHeight;
 
   const ContentPage({
-    Key? key,
+    super.key,
     required this.image,
     required this.title,
     required this.description,
     required this.screenWidth,
     required this.screenHeight,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

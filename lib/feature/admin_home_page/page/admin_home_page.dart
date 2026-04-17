@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../admin_add_food/presentation/page/add_food_page.dart';
 import '../../admin_login/presentation/page/admin_login_page.dart';
 import '../widget/admin_card.dart';
 import '../widget/show_logout_diolog.dart';
@@ -92,11 +93,10 @@ class AdminHomePage extends StatelessWidget {
                   icon: Icons.restaurant_menu,
                   image: 'assets/image/salad.png',
                   color: Colors.deepOrange,
-                  onTap: () {}
-                // => Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (_) => const AddFoodPage()),
-                // ),
+                  onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => AddFoodPage()),
+                ),
               ),
               SizedBox(height: sh * 0.02),
         
@@ -106,11 +106,10 @@ class AdminHomePage extends StatelessWidget {
                   icon: Icons.icecream,
                   image: 'assets/image/icecream.png',
                   color: Colors.pink,
-                  onTap: () {}
-                // => Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (_) => const AddFoodPage()),
-                // ),
+                  onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => AddFoodPage()),
+                ),
               ),
               SizedBox(height: sh * 0.02),
         
@@ -120,11 +119,10 @@ class AdminHomePage extends StatelessWidget {
                   icon: Icons.local_pizza,
                   image: 'assets/image/pizza.png',
                   color: Colors.amber.shade700,
-                  onTap: () {}
-                // => Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (_) => const AddFoodPage()),
-                // ),
+                  onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => AddFoodPage()),
+                ),
               ),
               SizedBox(height: sh * 0.02),
         
@@ -134,11 +132,10 @@ class AdminHomePage extends StatelessWidget {
                 icon: Icons.lunch_dining,
                 image: 'assets/image/burger.png',
                 color: Colors.brown,
-                onTap: () {},
-                // onTap: () => Navigator.push(
-                //   context,
-                //   MaterialPageRoute(builder: (_) => const AddFoodPage()),
-                // ),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => AddFoodPage()),
+                ),
               ),
               SizedBox(height: sh * 0.03),
         
