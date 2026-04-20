@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foodygo/core/router/animate_navigation_route.dart';
 import 'package:foodygo/feature/home/presentation/cubit/home_cubit.dart';
 import 'package:foodygo/feature/home/presentation/cubit/home_state.dart';
 import 'package:get_it/get_it.dart';
@@ -89,15 +90,18 @@ class _HomeView extends StatelessWidget {
                           ],
                         ),
                         Container(
-                          padding: EdgeInsets.all(sw * 0.025),
+                          padding: EdgeInsets.all(sw * 0.006),
                           decoration: const BoxDecoration(
                             color: Colors.black,
                             shape: BoxShape.circle,
                           ),
-                          child: Icon(
-                            Icons.shopping_bag_outlined,
+                          child:
+                          IconButton(
+                            icon:Icon(Icons.shopping_bag_outlined,size: sw * 0.07),
                             color: Colors.white,
-                            size: sw * 0.06,
+                            onPressed: () {
+                              Navigator.push(context, AnimateNavigationRoute.cartRoute());
+                            },
                           ),
                         ),
                       ],
