@@ -7,14 +7,15 @@ import 'homepage.dart';
 
 
 class BottomNav extends StatefulWidget {
-  const BottomNav({super.key});
+  final int index;
+  const BottomNav({super.key, this.index=0});
 
   @override
   BottomNavState createState() => BottomNavState();
 }
 
 class BottomNavState extends State<BottomNav> {
-  int _tabIndex = 0;
+  late int _tabIndex = widget.index;
   late List<Widget> _pages;
   late Widget _currentPage;
 
