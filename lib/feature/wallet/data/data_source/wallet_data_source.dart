@@ -17,9 +17,7 @@ class WalletDataSourceImpl implements WalletDataSource {
       await firestore.collection('user').doc(userId).get();
       if (doc.exists && doc.data() != null) {
         return doc.get('wallet') ?? 0;
-      }
-      // ✅ Fallback to SharedPrefs
-      final saved = await SharedPrefService.getWalletBalance();
+      }final saved = await SharedPrefService.getWalletBalance();
       return saved;
     } catch (e) {
       rethrow;
