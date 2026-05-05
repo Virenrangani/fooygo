@@ -34,19 +34,5 @@ class CustomPadding {
   static const edgeSymmetricHori8Ver12=EdgeInsets.symmetric(horizontal: 8, vertical: 12);
   static const edgeSymmetricHori8Ver2=EdgeInsets.symmetric(horizontal: 8, vertical: 2);
 
-  //EdgeInserts only bottom
-  static const edgeOnlyBottom12=EdgeInsets.only(bottom: 12);
-  static const edgeOnlyBottom8=EdgeInsets.only(bottom: 8);
-
-  //EdgeInserts only bottom
-  static const edgeOnlyTop8=EdgeInsets.only(top: 8);
-  static const edgeOnlyTop12=EdgeInsets.only(top: 12);
-
-  static const edgeOnlyTop60LeftRight30=EdgeInsets.only(top:60,left: 30,right: 30);
-
-
-
-
-
 
 }
