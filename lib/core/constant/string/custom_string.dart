@@ -59,5 +59,11 @@ class CustomString {
   static const String resetEmail="SEND RESET EMAIL";
   static const String back="Back to";
 
+  static const String welcomeTitle = "Welcome to Our App!";
+  static const String welcomeDesc = "Discover amazing features and get started today!";
+  static const String exploreTitle = "Explore New Possibilities";
+  static const String exploreDesc = "Unlock a world of opportunities with our app.";
+  static const String getStartedTitle = "Get Started Now";
+  static const String getStartedDesc = "Join our community and start your journey!";
 
 }
