@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:foodygo/core/constant/image/app_image/app_image.dart';
+import 'package:foodygo/core/constant/padding/custom_padding.dart';
 import 'package:foodygo/core/constant/string/custom_string.dart';
 import 'package:foodygo/core/widget/elevated_button/custom_elevated_button.dart';
 import '../slide_button_screen/slide_button_page.dart';
@@ -19,18 +21,19 @@ class OnboardingScreenState extends State<OnboardingScreen> {
 
   final List<Map<String, String>> _onboardingData = [
     {
-      'image': 'assets/image/screen1.png',
-      'title': 'Welcome to Our App!',
-      'description': 'Discover amazing features and get started today!',
+      'image': AppImage.onBoarding1,
+      'title': CustomString.welcomeTitle,
+      'description': CustomString.welcomeDesc,
     },
     {
-      'image': 'assets/image/screen2.png',
-      'title': 'Explore New Possibilities',
-      'description': 'Unlock a world of opportunities with our app.',},
+      'image': AppImage.onBoarding2,
+      'title': CustomString.exploreTitle,
+      'description': CustomString.exploreDesc,
+    },
     {
-      'image': 'assets/image/screen3.png',
-      'title': 'Get Started Now',
-      'description': 'Join our community and start your journey!',
+      'image': AppImage.onBoarding3,
+      'title': CustomString.getStartedTitle,
+      'description': CustomString.getStartedDesc,
     },
   ];
 
@@ -74,7 +77,7 @@ class OnboardingScreenState extends State<OnboardingScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20.0),
+              padding: CustomPadding.edgeAll12,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: _buildPageIndicator(),
@@ -91,11 +94,18 @@ class OnboardingScreenState extends State<OnboardingScreen> {
                   : Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  CustomElevatedButton(text: CustomString.skip, onPressed: (){
-                    _pageController.animateToPage(_numPages - 1, duration: Duration(milliseconds: 500), curve: Curves.ease);
+                  CustomElevatedButton(
+                      text: CustomString.skip,
+                      onPressed: (){
+                    _pageController.animateToPage(_numPages - 1,
+                        duration: Duration(milliseconds: 500),
+                        curve: Curves.ease);
                   }),
-                  CustomElevatedButton(text: CustomString.next, onPressed: (){
-                    _pageController.nextPage(duration: Duration(milliseconds: 500), curve: Curves.ease);
+                  CustomElevatedButton(
+                      text: CustomString.next,
+                      onPressed: (){
+                    _pageController.nextPage(duration: Duration(milliseconds: 500),
+                        curve: Curves.ease);
                   }),
                 ],
               ),
