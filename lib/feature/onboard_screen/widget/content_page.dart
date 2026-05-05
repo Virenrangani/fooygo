@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:foodygo/core/constant/padding/custom_padding.dart';
 
 class ContentPage extends StatelessWidget {
   final String image;
@@ -19,7 +20,7 @@ class ContentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(20.0),
+      padding: CustomPadding.edgeAll20,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
