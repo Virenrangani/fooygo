@@ -2,15 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodygo/feature/home/presentation/cubit/home_cubit.dart';
 import 'package:foodygo/feature/home/presentation/cubit/home_state.dart';
+import 'package:lottie/lottie.dart';
 
 class CategoryChips extends StatelessWidget {
   const CategoryChips({super.key});
 
   static const List<Map<String, String>> _categories = [
-    {'label': 'Pizza',     'asset': 'assets/image/pizza.png',    'key': 'pizza'},
-    {'label': 'Burger',    'asset': 'assets/image/burger.png',   'key': 'burger'},
-    {'label': 'Salad',     'asset': 'assets/image/salad.png',    'key': 'salad'},
-    {'label': 'Ice Cream', 'asset': 'assets/image/icecream.png', 'key': 'ice-cream'},
+    {'label': 'Pizza',     'asset': 'assets/lotties/Pizza.json',    'key': 'pizza'},
+    {'label': 'Burger',    'asset': 'assets/lotties/Burger.json',   'key': 'burger'},
+    {'label': 'Salad',     'asset': 'assets/lotties/salad.json',    'key': 'salad'},
+    {'label': 'Ice Cream', 'asset': 'assets/lotties/Ice cream.json', 'key': 'ice-cream'},
   ];
 
   @override
@@ -25,7 +26,7 @@ class CategoryChips extends StatelessWidget {
         state is HomeLoaded ? state.selectedCategory : 'pizza';
 
         return SizedBox(
-          height: sw * 0.22,
+          height: sw * 0.28,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: _categories.length,
@@ -40,8 +41,8 @@ class CategoryChips extends StatelessWidget {
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 250),
                   padding: EdgeInsets.symmetric(
-                    horizontal: sw * 0.04,
-                    vertical: sw * 0.02,
+                    horizontal: sw * 0.03,
+                    vertical: sw * 0.01,
                   ),
                   decoration: BoxDecoration(
                     color: isSelected ? Colors.deepOrange : Colors.white,
@@ -57,11 +58,13 @@ class CategoryChips extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Image.asset(
+                      Lottie.asset(
                         cat['asset']!,
-                        height: sw * 0.1,
-                        width: sw * 0.1,
-                        color: isSelected ? Colors.white : Colors.black,
+                        height: sw * 0.20,
+                        width: sw * 0.20,
+                        repeat: isSelected,
+                        animate: true,
+                        fit: BoxFit.contain,
                       ),
                       SizedBox(height: sw * 0.01),
                       Text(
