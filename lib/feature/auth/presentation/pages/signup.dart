@@ -4,6 +4,7 @@ import 'package:foodygo/core/constant/image/app_image/app_image.dart';
 import 'package:foodygo/core/constant/string/custom_string.dart';
 import 'package:foodygo/core/widget/snack_bar/custom_snack_bar.dart';
 import 'package:foodygo/core/widget/text_form_field/custom_text_form_field.dart';
+import 'package:foodygo/feature/auth/presentation/widget/animated_logo.dart';
 import 'package:get_it/get_it.dart';
 import '../../../../core/constant/color/custom_color.dart';
 import '../../../../core/constant/font_size/custom_text_style.dart';
@@ -94,12 +95,7 @@ class _SignupState extends State<Signup> {
                       Container(
                         margin: EdgeInsets.only(top: screenHeight * 0.1),
                         child: Center(
-                          child: Image.asset(
-                            AppImage.foody,
-                            color: Colors.black,
-                            width: screenWidth / (isSmallScreen ? 2 : 3),
-                            fit: BoxFit.cover,
-                          ),
+                          child: PremiumLogoAnimation()
                         ),
                       ),
                       SizedBox(height: screenHeight * 0.02),

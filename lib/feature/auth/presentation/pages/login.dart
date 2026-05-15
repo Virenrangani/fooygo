@@ -11,6 +11,7 @@ import 'package:foodygo/core/widget/inkwell_button/custom_inkwell_button.dart';
 import 'package:foodygo/core/widget/snack_bar/custom_snack_bar.dart';
 import 'package:foodygo/core/widget/text_form_field/custom_text_form_field.dart';
 import 'package:foodygo/feature/auth/presentation/pages/signup.dart';
+import 'package:foodygo/feature/auth/presentation/widget/animated_logo.dart';
 import 'package:get_it/get_it.dart';
 import '../../../../core/widget/custom_card/custom_card.dart';
 import '../../../home/presentation/page/bottomnav.dart';
@@ -99,12 +100,7 @@ class _LoginState extends State<Login> {
                         Container(
                           margin: EdgeInsets.only(top: screenHeight * 0.1),
                           child: Center(
-                            child: Image.asset(
-                              AppImage.foody,
-                              color: Colors.black,
-                              width: screenWidth / (isSmallScreen ? 2 : 3),
-                              fit: BoxFit.cover,
-                            ),
+                            child: PremiumLogoAnimation()
                           ),
                         ),
                         SizedBox(height: screenHeight * 0.05),
