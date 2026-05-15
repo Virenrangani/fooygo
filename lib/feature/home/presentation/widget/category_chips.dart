@@ -9,7 +9,7 @@ class CategoryChips extends StatelessWidget {
 
   static const List<Map<String, String>> _categories = [
     {'label': 'Pizza',     'asset': 'assets/lotties/Pizza.json',    'key': 'pizza'},
-    {'label': 'Burger',    'asset': 'assets/lotties/Burger.json',   'key': 'burger'},
+    {'label': 'Burger',    'asset': 'assets/lotties/Bouncing Burger.json',   'key': 'burger'},
     {'label': 'Salad',     'asset': 'assets/lotties/salad.json',    'key': 'salad'},
     {'label': 'Ice Cream', 'asset': 'assets/lotties/Ice cream.json', 'key': 'ice-cream'},
   ];
