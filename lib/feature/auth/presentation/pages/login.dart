@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodygo/core/constant/border/custom_border_radius.dart';
 import 'package:foodygo/core/constant/color/custom_color.dart';
 import 'package:foodygo/core/constant/font_size/custom_text_style.dart';
-import 'package:foodygo/core/constant/image/app_image/app_image.dart';
 import 'package:foodygo/core/constant/padding/custom_padding.dart';
 import 'package:foodygo/core/constant/string/custom_string.dart';
 import 'package:foodygo/core/widget/elevated_button/custom_elevated_button.dart';

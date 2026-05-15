@@ -32,7 +32,7 @@ class FoodCategoryDropdown extends StatelessWidget {
         ),
         SizedBox(height: sh * 0.008),
         DropdownButtonFormField<String>(
-          value: selectedCategory,
+          initialValue: selectedCategory,
           validator: validator,
           decoration: InputDecoration(
             filled: true,

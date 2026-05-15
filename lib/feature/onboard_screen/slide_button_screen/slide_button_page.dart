@@ -4,7 +4,6 @@ import 'package:foodygo/core/constant/font_size/custom_text_style.dart';
 import 'package:foodygo/core/constant/padding/custom_padding.dart';
 import 'package:foodygo/core/constant/string/custom_string.dart';
 import 'package:foodygo/feature/auth/presentation/pages/login.dart';
-import 'package:foodygo/feature/auth/presentation/pages/signup.dart';
 import 'package:slidable_button/slidable_button.dart';
 import '../../admin_login/presentation/page/admin_login_page.dart';
 

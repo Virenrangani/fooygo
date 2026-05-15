@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodygo/feature/wallet/presentation/cubit/wallet_cubit.dart';
 import 'package:foodygo/feature/wallet/presentation/cubit/wallet_state.dart';
 import 'package:get_it/get_it.dart';
-import '../widget/amount_button.dart';
-import '../widget/wallet_balance_card.dart';
 
 class WalletPage extends StatelessWidget {
   const WalletPage({super.key});

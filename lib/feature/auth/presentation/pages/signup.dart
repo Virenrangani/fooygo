@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodygo/core/constant/image/app_image/app_image.dart';
 import 'package:foodygo/core/constant/string/custom_string.dart';
 import 'package:foodygo/core/widget/snack_bar/custom_snack_bar.dart';
 import 'package:foodygo/core/widget/text_form_field/custom_text_form_field.dart';

@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:foodygo/feature/cart/domain/entity/cart_entity.dart';
 import 'package:foodygo/feature/cart/presentation/cubit/cart_cubit.dart';
 import 'package:foodygo/feature/cart/presentation/cubit/cart_state.dart';
 import 'package:foodygo/feature/cart/presentation/widget/thankyou.dart';
 import 'package:get_it/get_it.dart';
 import '../widget/cart_item_card.dart';
-import '../widget/checkout_button.dart';
 
 class CartPage extends StatelessWidget {
   const CartPage({super.key});
@@ -57,12 +55,6 @@ class _CartView extends StatelessWidget {
         },
 
         builder: (context, state) {
-          final totalPrice =
-          state is CartLoaded
-              ? state.totalPrice
-              : state is CheckoutLoading
-              ? state.totalPrice
-              : 0;
 
           return CustomScrollView(
             physics: const BouncingScrollPhysics(),
