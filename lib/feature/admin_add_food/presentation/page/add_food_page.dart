@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:foodygo/core/widget/snack_bar/custom_snack_bar.dart';
 import 'package:get_it/get_it.dart';
+
 import '../../../../core/widget/text_form_field/custom_text_form_field.dart';
 import '../cubit/add_food_cubit.dart';
 import '../cubit/add_food_state.dart';
 import '../widget/food_category_dropdown.dart';
 
 class AddFoodPage extends StatelessWidget {
-  const AddFoodPage( {super.key,});
+  const AddFoodPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +28,13 @@ class _AddFoodView extends StatefulWidget {
 }
 
 class _AddFoodViewState extends State<_AddFoodView> {
-  final _formKey    = GlobalKey<FormState>();
-  final _imageCtrl  = TextEditingController();
-  final _nameCtrl   = TextEditingController();
-  final _priceCtrl  = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  final _imageCtrl = TextEditingController();
+  final _nameCtrl = TextEditingController();
+  final _priceCtrl = TextEditingController();
   final _detailCtrl = TextEditingController();
+
   String? _selectedCategory;
 
   static const List<String> _categories = [
@@ -50,185 +53,270 @@ class _AddFoodViewState extends State<_AddFoodView> {
     super.dispose();
   }
 
-  void _clearForm() {
-    _imageCtrl.clear();
-    _nameCtrl.clear();
-    _priceCtrl.clear();
-    _detailCtrl.clear();
-    setState(() => _selectedCategory = null);
+  Widget buildField({
+    required TextEditingController controller,
+    required String hint,
+    required IconData icon,
+    int maxLines = 1,
+    TextInputType? keyboardType,
+    String? Function(String?)? validator,
+  }) {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 250),
+      margin: const EdgeInsets.only(bottom: 18),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.orange.withOpacity(0.08),
+            blurRadius: 18,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: TextFormField(
+        controller: controller,
+        maxLines: maxLines,
+        keyboardType: keyboardType,
+        validator: validator,
+        style: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ),
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
+          hintText: hint,
+          prefixIcon: Icon(
+            icon,
+            color: Colors.deepOrange,
+          ),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 20,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(18),
+            borderSide: BorderSide.none,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(18),
+            borderSide: BorderSide(
+              color: Colors.grey.shade200,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(18),
+            borderSide: const BorderSide(
+              color: Colors.deepOrange,
+              width: 2,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final sw = MediaQuery.of(context).size.width;
     final sh = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color(0xffF8F8F8),
+
       appBar: AppBar(
-        backgroundColor: Colors.white,
         elevation: 0,
-        leading: GestureDetector(
-          onTap: () => Navigator.pop(context),
-          child: Container(
-            margin: EdgeInsets.all(sw * 0.02),
-            decoration: BoxDecoration(
-              color: Colors.grey.shade100,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: const Icon(
-              Icons.arrow_back_ios_new,
-              color: Colors.black,
-              size: 18,
-            ),
-          ),
-        ),
+        backgroundColor: Colors.transparent,
         centerTitle: true,
-        title: Text(
-          'Add Food Item',
+        title: const Text(
+          "Add Food",
           style: TextStyle(
-            fontSize: sw * 0.055,
-            fontWeight: FontWeight.bold,
             color: Colors.black,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ),
+
       body: BlocConsumer<AddFoodCubit, AddFoodState>(
         listener: (context, state) {
           if (state is AddFoodSuccess) {
-            CustomSnacksBar.showSuccess(context, "Food item added successfully!");
-            _clearForm();
+            CustomSnacksBar.showSuccess(
+              context,
+              "Food item added successfully!",
+            );
+
             Navigator.pop(context);
-          } else if (state is AddFoodFailure) {
-            CustomSnacksBar.showError(context, state.message);
+          }
+
+          if (state is AddFoodFailure) {
+            CustomSnacksBar.showError(
+              context,
+              state.message,
+            );
           }
         },
         builder: (context, state) {
           final isLoading = state is AddFoodLoading;
+
           return SingleChildScrollView(
-            padding: EdgeInsets.symmetric(
-              horizontal: sw * 0.06,
-              vertical: sh * 0.02,
-            ),
+            padding: const EdgeInsets.all(20),
             child: Form(
               key: _formKey,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CustomFormField(
+
+                  /// IMAGE PREVIEW
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 400),
+                    height: 180,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(24),
+                      color: Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.orange.withOpacity(0.12),
+                          blurRadius: 20,
+                          offset: const Offset(0, 10),
+                        ),
+                      ],
+                      image: _imageCtrl.text.isNotEmpty
+                          ? DecorationImage(
+                        image: NetworkImage(_imageCtrl.text),
+                        fit: BoxFit.cover,
+                      )
+                          : null,
+                    ),
+                    child: _imageCtrl.text.isEmpty
+                        ? const Center(
+                      child: Icon(
+                        Icons.fastfood,
+                        size: 70,
+                        color: Colors.deepOrange,
+                      ),
+                    )
+                        : null,
+                  ),
+
+                  SizedBox(height: sh * 0.03),
+
+                  buildField(
                     controller: _imageCtrl,
-                    labelText: 'Image URL',
-                    hintText: 'Paste image URL here',
+                    hint: "Paste Image URL",
+                    icon: Icons.image_outlined,
                     validator: (val) {
                       if (val == null || val.isEmpty) {
                         return 'Enter image URL';
                       }
-                      if (!val.startsWith('http')) {
-                        return 'Enter a valid URL';
-                      }
                       return null;
                     },
                   ),
-                  SizedBox(height: sh * 0.025),
 
-                  CustomFormField(
+                  buildField(
                     controller: _nameCtrl,
-                    labelText: 'Item Name',
-                    hintText: 'Enter item name',
+                    hint: "Food Name",
+                    icon: Icons.restaurant_menu,
                     validator: (val) {
                       if (val == null || val.isEmpty) {
-                        return 'Enter item name';
+                        return 'Enter food name';
                       }
                       return null;
                     },
                   ),
-                  SizedBox(height: sh * 0.02),
 
-                  CustomFormField(
+                  buildField(
                     controller: _priceCtrl,
-                    labelText: 'Item Price',
-                    hintText: 'Enter item price',
+                    hint: "Food Price",
+                    icon: Icons.currency_rupee,
                     keyboardType: TextInputType.number,
                     validator: (val) {
                       if (val == null || val.isEmpty) {
-                        return 'Enter item price';
-                      }
-                      if (int.tryParse(val) == null) {
-                        return 'Enter a valid number';
+                        return 'Enter food price';
                       }
                       return null;
                     },
                   ),
-                  SizedBox(height: sh * 0.02),
 
-                  CustomFormField(
+                  buildField(
                     controller: _detailCtrl,
+                    hint: "Food Description",
+                    icon: Icons.description_outlined,
                     maxLines: 4,
                     validator: (val) {
                       if (val == null || val.isEmpty) {
-                        return 'Enter item detail';
+                        return 'Enter food description';
                       }
                       return null;
                     },
-                    labelText: 'Item Detail',
-                    hintText: 'Enter item description',
                   ),
-                  SizedBox(height: sh * 0.02),
 
                   FoodCategoryDropdown(
                     selectedCategory: _selectedCategory,
                     categories: _categories,
-                    onChanged: (val) =>
-                        setState(() => _selectedCategory = val),
+                    onChanged: (val) {
+                      setState(() {
+                        _selectedCategory = val;
+                      });
+                    },
                     validator: (val) {
                       if (val == null || val.isEmpty) {
-                        return 'Select a category';
+                        return 'Select category';
                       }
                       return null;
                     },
                   ),
+
                   SizedBox(height: sh * 0.04),
 
                   isLoading
-                      ? const Center(
-                    child: CircularProgressIndicator(
-                        color: Colors.deepOrange),
-                  )
-                      : SizedBox(
-                    width: double.infinity,
-                    height: sh * 0.065,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
+                      ? const CircularProgressIndicator()
+                      : GestureDetector(
+                    onTap: () {
+                      if (_formKey.currentState!.validate()) {
+                        context.read<AddFoodCubit>().addFood(
+                          imageUrl: _imageCtrl.text.trim(),
+                          name: _nameCtrl.text.trim(),
+                          price: _priceCtrl.text.trim(),
+                          detail: _detailCtrl.text.trim(),
+                          category: _selectedCategory!,
+                        );
+                      }
+                    },
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 300),
+                      height: 62,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        gradient: const LinearGradient(
+                          colors: [
+                            Colors.deepOrange,
+                            Colors.orange,
+                          ],
                         ),
-                        elevation: 4,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.orange.withOpacity(0.4),
+                            blurRadius: 16,
+                            offset: const Offset(0, 8),
+                          ),
+                        ],
                       ),
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          context.read<AddFoodCubit>().addFood(
-                            imageUrl: _imageCtrl.text.trim(),
-                            name: _nameCtrl.text.trim(),
-                            price: _priceCtrl.text.trim(),
-                            detail: _detailCtrl.text.trim(),
-                            category: _selectedCategory!,
-                          );
-                        }
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                      child: const Row(
+                        mainAxisAlignment:
+                        MainAxisAlignment.center,
                         children: [
-                          const Icon(
+                          Icon(
                             Icons.add_circle_outline,
                             color: Colors.white,
                           ),
-                          SizedBox(width: sw * 0.02),
+                          SizedBox(width: 10),
                           Text(
-                            'Add Food Item',
+                            "Add Food Item",
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: sw * 0.045,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -236,7 +324,8 @@ class _AddFoodViewState extends State<_AddFoodView> {
                       ),
                     ),
                   ),
-                  SizedBox(height: sh * 0.03),
+
+                  SizedBox(height: sh * 0.04),
                 ],
               ),
             ),
